@@ -27,17 +27,30 @@ const LeadTable: React.FC<LeadTableProps> = ({
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const scrollbarRef = useRef<HTMLDivElement>(null);
 
-  // مزامنة تمرير شريط التمرير مع الجدول
+  // الحالة لتخزين عرض الشريط
+  const [scrollbarWidth, setScrollbarWidth] = useState<number>(window.innerWidth);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (tableContainerRef.current) {
+        setScrollbarWidth(tableContainerRef.current.scrollWidth || window.innerWidth);
+      } else {
+        setScrollbarWidth(window.innerWidth);
+      }
+    };
+    // تحديث فوري أول تحميل
+    updateWidth();
+    // تحديث عند تغيير الحجم أو البيانات
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, [leads]);
+
   useEffect(() => {
     const tableDiv = tableContainerRef.current;
     const scrollbar = scrollbarRef.current;
     if (tableDiv && scrollbar) {
-      const syncScroll = () => {
-        scrollbar.scrollLeft = tableDiv.scrollLeft;
-      };
-      const syncFakeScroll = () => {
-        tableDiv.scrollLeft = scrollbar.scrollLeft;
-      };
+      const syncScroll = () => scrollbar.scrollLeft = tableDiv.scrollLeft;
+      const syncFakeScroll = () => tableDiv.scrollLeft = scrollbar.scrollLeft;
       tableDiv.addEventListener("scroll", syncScroll);
       scrollbar.addEventListener("scroll", syncFakeScroll);
       return () => {
@@ -45,7 +58,7 @@ const LeadTable: React.FC<LeadTableProps> = ({
         scrollbar.removeEventListener("scroll", syncFakeScroll);
       };
     }
-  }, []);
+  }, [scrollbarWidth]);
 
   const addRow = (afterId?: number) => {
     const newLead: Lead = {
@@ -109,18 +122,15 @@ const LeadTable: React.FC<LeadTableProps> = ({
 
   return (
     <div className="min-h-screen bg-[#181818] flex flex-col relative pb-16">
-      {/* القسم العلوي (العنوان وأزرار ... ) */}
       <div className="p-4 z-10 bg-[#181818] shadow-md">
         <h1 className="text-white text-xl font-bold mb-2">Leads</h1>
       </div>
 
-      {/* الجدول يأخذ المساحة المتبقية ويظهر فقط شريط تمرير أفقي خارجي */}
       <div
         className="flex-1 overflow-y-auto overflow-x-hidden border border-gray-800 rounded-lg"
         ref={tableContainerRef}
       >
         <div className="min-w-max">
-          {/* Table Header */}
           <div
             className="grid bg-[#202020] border-b border-gray-700 sticky top-0 z-10"
             style={{ gridTemplateColumns }}
@@ -141,8 +151,6 @@ const LeadTable: React.FC<LeadTableProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Table Body */}
           <div>
             {leads.map((lead) => (
               <div
@@ -179,8 +187,6 @@ const LeadTable: React.FC<LeadTableProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Footer */}
           <div onClick={() => addRow()} className="flex items-center space-x-2 p-2.5 cursor-pointer text-gray-400 hover:bg-gray-800/40">
             <PlusIcon className="w-4 h-4" />
             <span>New page</span>
@@ -188,13 +194,13 @@ const LeadTable: React.FC<LeadTableProps> = ({
         </div>
       </div>
 
-      {/* شريط التمرير الأفقي الثابت دائماً */}
+      {/* شريط التمرير الأفقي يظهر دوماً بالحجم الصحيح */}
       <div
         ref={scrollbarRef}
         className="fixed left-0 bottom-0 w-full h-6 bg-[#181818] overflow-x-auto z-50"
         style={{ pointerEvents: 'auto' }}
       >
-        <div style={{ width: tableContainerRef.current?.scrollWidth || 1200, height: 6 }}/>
+        <div style={{ width: scrollbarWidth, height: 6 }} />
       </div>
     </div>
   );
