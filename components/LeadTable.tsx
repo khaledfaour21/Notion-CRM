@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Lead, ContactChannel, Status, Task } from "../types";
 import { LEAD_TABLE_COLUMNS } from "../constants";
 import { PlusIcon, InfoIcon, GripVerticalIcon } from "./icons";
-import Cell from "./cell";
+import Cell from "./Cell";
 
 interface LeadTableProps {
   leads: Lead[];
