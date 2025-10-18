@@ -78,9 +78,8 @@ const PipelineView: React.FC<PipelineViewProps> = ({ leads, setLeads }) => {
               >
                 {/* Header */}
                 <div className="flex items-center space-x-2 p-2">
-                  {React.cloneElement(config.icon, {
-                    className: `w-4 h-4 ${config.textColor}`,
-                  })}
+               {React.cloneElement(config.icon)}
+
                   <span className={`font-medium ${config.textColor}`}>
                     {status}
                   </span>

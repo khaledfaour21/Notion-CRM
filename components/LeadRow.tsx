@@ -1,7 +1,7 @@
 import React from "react";
 import { Lead, Task } from "../types";
 import { LEAD_TABLE_COLUMNS } from "../constants";
-import Cell from "./cell";
+import Cell from "./Cell";
 
 interface LeadRowProps {
   lead: Lead;
@@ -54,7 +54,7 @@ const LeadRow: React.FC<LeadRowProps> = ({
           />
           <div className="flex items-center ml-2 space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
-              onClick={() => onChange(lead.id, "addRow", lead.id)}
+              onClick={() => onChange(lead.id, "priority", lead.id)}
               className="p-1 rounded hover:bg-gray-700"
             >
               {/* Plus icon */}

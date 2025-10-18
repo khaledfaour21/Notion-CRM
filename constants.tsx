@@ -440,6 +440,12 @@ export const LEADS_DATA: Lead[] = [
   },
 ];
 
+export const PRIORITY_CONFIG: Record<Priority, { color: string }> = {
+  [Priority.Low]: { color: "bg-green-600/30 text-green-300" },
+  [Priority.Medium]: { color: "bg-yellow-600/30 text-yellow-300" },
+  [Priority.High]: { color: "bg-red-600/30 text-red-300" },
+};
+
 export const TASKS_DATA: Task[] = [
   {
     id: 1,
