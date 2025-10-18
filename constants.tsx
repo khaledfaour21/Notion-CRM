@@ -26,7 +26,7 @@ import {
   CheckCircleIcon,
 } from "./components/icons";
 
-// FIX: Specified the generic type for React.ReactElement to allow cloning with props like 'className'.
+// STATUS CONFIG
 export const STATUS_CONFIG: Record<
   Status,
   {
@@ -98,50 +98,59 @@ export const STATUS_GROUPS: { [key: string]: Status[] } = {
   Complete: [Status.ClosedWon, Status.ClosedLost, Status.Disqualified],
 };
 
+// PIPELINE STATUS CONFIG
 export const PIPELINE_STATUS_CONFIG: Record<
   Status,
-  { icon: React.ReactElement; color: string }
+  { icon: React.ReactElement; color: string; textColor: string }
 > = {
   [Status.New]: {
-    icon: <CircleIcon className="w-4 h-4 text-blue-500" />,
+    icon: <CircleIcon className="w-4 h-4 text-blue-400" />,
     color: "bg-blue-800/30",
+    textColor: "text-blue-400",
   },
   [Status.Researching]: {
     icon: <CircleIcon className="w-4 h-4 text-orange-500" />,
     color: "bg-orange-800/30",
+    textColor: "text-orange-400",
   },
   [Status.Contacted]: {
-    icon: <CircleIcon className="w-4 h-4 text-blue-500" />,
+    icon: <CircleIcon className="w-4 h-4 text-blue-400" />,
     color: "bg-blue-800/30",
+    textColor: "text-blue-500",
   },
   [Status.Replied]: {
     icon: <CircleIcon className="w-4 h-4 text-yellow-500" />,
     color: "bg-yellow-800/30",
+    textColor: "text-yellow-400",
   },
   [Status.DemoScheduled]: {
     icon: <CircleIcon className="w-4 h-4 text-purple-500" />,
     color: "bg-purple-800/30",
+    textColor: "text-purple-400",
   },
   [Status.ClosedWon]: {
     icon: <CircleIcon className="w-4 h-4 text-green-500" />,
     color: "bg-green-800/30",
+    textColor: "text-green-400",
   },
   [Status.ClosedLost]: {
     icon: <CircleIcon className="w-4 h-4 text-red-500" />,
     color: "bg-red-800/30",
+    textColor: "text-red-400",
   },
   [Status.Disqualified]: {
     icon: <CircleIcon className="w-4 h-4 text-gray-500" />,
     color: "bg-gray-800/50",
+    textColor: "text-gray-400",
   },
   [Status.NoStatus]: {
     icon: <CircleIcon className="w-4 h-4 text-gray-500" />,
     color: "bg-gray-800/50",
+    textColor: "text-gray-400",
   },
 };
 
-// FIX: Changed React.ReactNode to React.ReactElement to provide a more specific type for the icon, which allows React.cloneElement to be used without type errors.
-// FIX: Specified the generic type for React.ReactElement to allow cloning with props like 'className'.
+// TASK STATUS CONFIG
 export const TASK_STATUS_CONFIG: Record<
   TaskStatus,
   {
@@ -151,14 +160,9 @@ export const TASK_STATUS_CONFIG: Record<
   }
 > = {
   [TaskStatus.Done]: {
-    icon: <CircleIcon />,
-    color: "bg-gray-500/10",
-    textColor: "text-gray-400",
-  },
-  [TaskStatus.Complete]: {
     icon: <CheckCircleIcon />,
-    color: "bg-green-600/10",
-    textColor: "text-green-400",
+    color: "bg-gray-700/20",
+    textColor: "text-gray-400",
   },
   [TaskStatus.InProgress]: {
     icon: <CircleIcon />,
@@ -167,16 +171,22 @@ export const TASK_STATUS_CONFIG: Record<
   },
   [TaskStatus.ToDo]: {
     icon: <CircleIcon />,
-    color: "bg-gray-500/10",
+    color: "bg-gray-700/10",
     textColor: "text-gray-400",
+  },
+  [TaskStatus.Complete]: {
+    icon: <CheckCircleIcon />,
+    color: "bg-green-800/20",
+    textColor: "text-green-400",
   },
   [TaskStatus.NoStatus]: {
     icon: <CircleIcon />,
-    color: "bg-gray-500/10",
+    color: "bg-gray-600/20",
     textColor: "text-gray-400",
   },
 };
 
+// LEAD TABLE COLUMNS
 export const LEAD_TABLE_COLUMNS = [
   { id: "name", title: "Name", icon: <FileTextIcon className="w-4 h-4" /> },
   {
@@ -240,6 +250,7 @@ export const LEAD_TABLE_COLUMNS = [
   },
 ];
 
+// FOLLOW-UPS TABLE COLUMNS
 export const FOLLOW_UPS_TABLE_COLUMNS = [
   {
     id: "name",
@@ -339,6 +350,7 @@ export const FOLLOW_UPS_TABLE_COLUMNS = [
   },
 ];
 
+// TASK TABLE COLUMNS
 export const TASK_TABLE_COLUMNS = [
   { id: "title", title: "Task", icon: <FileTextIcon className="w-4 h-4" /> },
   { id: "leadId", title: "Lead", icon: <LeadsIcon className="w-4 h-4" /> },
@@ -348,6 +360,7 @@ export const TASK_TABLE_COLUMNS = [
   { id: "notes", title: "Notes", icon: <FileTextIcon className="w-4 h-4" /> },
 ];
 
+// بيانات تجريبية
 export const LEADS_DATA: Lead[] = [
   {
     id: 1,
